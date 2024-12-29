@@ -1,0 +1,32 @@
+# echo "--------------------------------------------------"
+# echo "                 Fitting  start!!                 "
+# echo "--------------------------------------------------"
+if [ -z "$1" ]; then
+    echo "Usage: $0 <input_number>"
+    exit 1
+fi
+if [ ! -f "input_$1.txt" ]; then
+    echo "Error: input_$1.txt does not exist."
+    exit 1
+fi
+ln -sf input_$1.txt input
+echo
+echo " Import input_$1.txt"
+
+if ./obj/fit.o input > output; then
+    cp output output_$1.txt
+    echo " Export output_$1.txt"
+    echo
+    timestamp=$(date +"%Y/%m/%d  %H:%M:%S")
+    echo "--------------------------------------------------"
+    echo "--------------------------------------------------"
+    echo "     Execution successfully done!              "
+    echo "                            $timestamp        "
+    echo "--------------------------------------------------"
+    echo "--------------------------------------------------"
+    echo
+    echo
+else
+    echo "Execution failed."
+    exit 1
+fi
